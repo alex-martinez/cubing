@@ -1,0 +1,504 @@
+$cube-size: 100px;
+$border-width: 4px;
+$border-color: #000;
+$thirds: calc(33.33% - #{$border-width/2)};
+$side-width: ceil(0.35 * $cube-size);
+
+// Cube colors
+$yellow: yellow;
+$b: #2040d1;
+$r: red;
+$g: green;
+$o: orange;
+$white: white;
+
+.cube {
+    // transform: scale(0.6);
+    margin: $side-width - 10;
+    position: relative;
+    width: $cube-size + $border-width*2;
+    height: $cube-size + $border-width*2;
+
+    // Faces of Cube
+    // ---------------
+    &-face {
+
+        // Upper
+        &__upper {
+            box-sizing: content-box;
+            position: relative;
+            background: $yellow;
+            width: $cube-size;
+            height: $cube-size;
+            border: $border-width solid $border-color;
+
+            // Borders
+            div {
+                // Vertical, Horizontal borders (shared properties)
+                &:before,
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background: $border-color;
+                }
+
+                // Vertical borders
+                &:first-child {
+                    &:before,
+                    &:after {
+                        top: 0;
+                        height: 100%;
+                        width: $border-width;
+                    }
+
+                    &:before {left: $thirds;}
+                    &:after {right: $thirds;}
+                }
+
+                // Horizontal borders
+                &:last-child {
+                    &:before,
+                    &:after {
+                        left: 0;
+                        width: 100%;
+                        height: $border-width;
+                    }
+
+                    &:before {top: $thirds;}
+                    &:after {bottom: $thirds;}
+                }
+            }
+        }
+
+        // Back, Front (shared properties)
+        &__back,
+        &__front {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: $side-width;
+            background: #fff;
+            border: $border-width solid $border-color;
+
+            // Borders
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                width: $border-width;
+                background: $border-color;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                z-index: 10;
+            }
+
+            &:before {left: $thirds;}
+            &:after {right: $thirds;}
+        }
+
+        &__back {
+            transform: perspective(600px) rotateX(50deg);
+            bottom: 100%;
+            border-bottom: none;
+            border-top-width: $border-width + 2;
+            transform-origin: bottom;
+        }
+
+        &__front {
+            transform: perspective(600px) rotateX(-50deg);
+            top: 100%;
+            border-top: none;
+            border-bottom-width: $border-width + 2;
+            transform-origin: top;
+        }
+
+
+        // Back, Front (shared properties)
+        &__left,
+        &__right {
+            position: absolute;
+            top: 0;
+            width: $side-width;
+            height: 100%;
+            background: #fff;
+            border: $border-width solid $border-color;
+
+            // Borders
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                background: $border-color;
+                height: $border-width;
+                position: absolute;
+                left: 0;
+                z-index: 10;
+            }
+
+            &:before {top: $thirds;}
+            &:after {bottom: $thirds;}
+        }
+
+        &__left {
+            transform: perspective(600px) rotateY(-50deg);
+            right: 100%;
+            border-right: none;
+            border-left-width: $border-width + 2;
+            transform-origin: right;
+        }
+
+        &__right {
+            transform: perspective(600px) rotateY(50deg);
+            left: 100%;
+            border-left: none;
+            border-right-width: $border-width + 2;
+            transform-origin: left;
+        }
+    }
+
+    // Individual Small Faces
+    // ---------------
+    .cube-small-face {
+        position: absolute;
+
+        &--horiz {
+            top: 0;
+            height: 100%;
+            width: 33.33%;
+
+            &:nth-child(1) {left: 0;}
+            &:nth-child(2) {left: 33.33%;}
+            &:nth-child(3) {right: 0;}
+        }
+
+        &--vert {
+            left: 0;
+            height: 33.33%;
+            width: 100%;
+
+            &:nth-child(1) {top: 0;}
+            &:nth-child(2) {top: 33.33%;}
+            &:nth-child(3) {bottom: 0;}
+        }
+    }
+
+    // PLL CASES
+    // ---------------
+    &--Aa .cube-small-face {
+        &--1 {background: $r;}
+        &--2 {background: $g;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $r;}
+        &--6 {background: $o;}
+        &--7 {background: $g;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $o;}
+        &--12 {background: $g;}
+    }
+
+    &--Ab .cube-small-face {
+        &--1 {background: $b;}
+        &--2 {background: $g;}
+        &--3 {background: $o;}
+        &--4 {background: $g;}
+        &--5 {background: $r;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $o;}
+        &--12 {background: $r;}
+    }
+
+    &--E .cube-small-face {
+        &--1 {background: $r;}
+        &--2 {background: $g;}
+        &--3 {background: $o;}
+        &--4 {background: $g;}
+        &--5 {background: $r;}
+        &--6 {background: $b;}
+        &--7 {background: $o;}
+        &--8 {background: $b;}
+        &--9 {background: $r;}
+        &--10 {background: $b;}
+        &--11 {background: $o;}
+        &--12 {background: $g;}
+    }
+
+    &--F .cube-small-face {
+        &--1 {background: $b;}
+        &--2 {background: $r;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $g;}
+        &--6 {background: $b;}
+        &--7 {background: $o;}
+        &--8 {background: $o;}
+        &--9 {background: $o;}
+        &--10 {background: $g;}
+        &--11 {background: $b;}
+        &--12 {background: $r;}
+    }
+
+    &--Ga .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $b;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $o;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $r;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $g;}
+        &--12 {background: $o;}
+    }
+
+    &--Gb .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $o;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $b;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $g;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--Gc .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $r;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $o;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $g;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $b;}
+        &--12 {background: $o;}
+    }
+
+    &--Gd .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $b;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $g;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $o;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--H .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $b;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $o;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $g;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--Ja .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $b;}
+        &--3 {background: $b;}
+        &--4 {background: $o;}
+        &--5 {background: $g;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $r;}
+        &--9 {background: $r;}
+        &--10 {background: $b;}
+        &--11 {background: $o;}
+        &--12 {background: $o;}
+    }
+
+    &--Jb .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $g;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $b;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $r;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $o;}
+        &--12 {background: $o;}
+    }
+
+    &--Na .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $g;}
+        &--3 {background: $b;}
+        &--4 {background: $o;}
+        &--5 {background: $o;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $b;}
+        &--9 {background: $g;}
+        &--10 {background: $r;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--Nb .cube-small-face {
+        &--1 {background: $b;}
+        &--2 {background: $g;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $o;}
+        &--6 {background: $o;}
+        &--7 {background: $g;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $r;}
+    }
+
+    &--Ra .cube-small-face {
+        &--1 {background: $r;}
+        &--2 {background: $g;}
+        &--3 {background: $o;}
+        &--4 {background: $g;}
+        &--5 {background: $r;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $o;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $b;}
+        &--12 {background: $g;}
+    }
+
+    &--Rb .cube-small-face {
+        &--1 {background: $r;}
+        &--2 {background: $g;}
+        &--3 {background: $o;}
+        &--4 {background: $g;}
+        &--5 {background: $b;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $r;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $o;}
+        &--12 {background: $g;}
+    }
+
+    &--T .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $g;}
+        &--3 {background: $r;}
+        &--4 {background: $b;}
+        &--5 {background: $o;}
+        &--6 {background: $g;}
+        &--7 {background: $r;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--Ua .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $o;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $g;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $r;}
+        &--12 {background: $o;}
+    }
+
+    &--Ub .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $r;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $o;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $g;}
+        &--12 {background: $o;}
+    }
+
+    &--V .cube-small-face {
+        &--1 {background: $b;}
+        &--2 {background: $r;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $g;}
+        &--6 {background: $o;}
+        &--7 {background: $g;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $o;}
+        &--12 {background: $r;}
+    }
+
+    &--Y .cube-small-face {
+        &--1 {background: $b;}
+        &--2 {background: $o;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $r;}
+        &--6 {background: $o;}
+        &--7 {background: $g;}
+        &--8 {background: $b;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $g;}
+        &--12 {background: $r;}
+    }
+
+    &--Z .cube-small-face {
+        &--1 {background: $g;}
+        &--2 {background: $o;}
+        &--3 {background: $g;}
+        &--4 {background: $r;}
+        &--5 {background: $b;}
+        &--6 {background: $r;}
+        &--7 {background: $b;}
+        &--8 {background: $r;}
+        &--9 {background: $b;}
+        &--10 {background: $o;}
+        &--11 {background: $g;}
+        &--12 {background: $o;}
+    }
+}

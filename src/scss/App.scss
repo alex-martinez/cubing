@@ -1,0 +1,67 @@
+:global {
+  // .App-logo {
+  //   animation: App-logo-spin infinite 20s linear;
+  //   height: 80px;
+  // }
+
+  // @keyframes App-logo-spin {
+  //   from {
+  //     transform: rotate(0deg);
+  //   }
+  //   to {
+  //     transform: rotate(360deg);
+  //   }
+  // }
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+
+
+body {
+    background: #222;
+}
+
+.table {
+    text-align: center;
+    background: #fff;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    width: 700px;
+    margin: 30px auto;
+}
+
+.table th {
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+.table td {
+}
+
+.table,
+.table th,
+.table td {
+    border: 1px solid #ddd;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table th,
+.table td {
+    padding: 8px 15px;
+    white-space: pre;
+}
+
+.table .text-left {
+    text-align: left;
+}
